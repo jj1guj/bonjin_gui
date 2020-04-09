@@ -16,7 +16,7 @@ int main(int argc,char** argv){
     glutInitDisplayMode(GLUT_RGB|GLUT_DEPTH|GLUT_DOUBLE);
     glutInitWindowSize(600,600);
     glutInitWindowPosition(0,0);
-    glutCreateWindow("Gomoku");
+    glutCreateWindow("bonjin_gui");
     glClearColor(0.72,0.53,0.23,1);
     gluOrtho2D(0,600,600,0);
     glutDisplayFunc(disp);
