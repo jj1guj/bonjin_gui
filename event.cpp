@@ -2,23 +2,25 @@
 
 //着手して局面と棋譜を記録する
 void move(){
+    move_X[0]=(int)(X[1]/25)-1;
+    move_X[1]=(int)(X[0]/25)-1;
     if(moves_count%2==1){
         //先手のとき
         glColor3f(0,0,0);
         glBegin(GL_LINE_LOOP);
             glCircle(stone_size,X[0],X[1]);
         glEnd();
-        board[(int)(X[0]/25)-1][(int)(X[1]/25)-1]=1;
+        board[move_X[0]][move_X[1]]=sente_stone;
     }else{
         //後手のとき
         glColor3f(1,1,1);
         glBegin(GL_LINE_LOOP);
             glCircle(stone_size,X[0],X[1]);
         glEnd();
-        board[(int)(X[0]/25)-1][(int)(X[1]/25)-1]=-1;
+        board[move_X[0]][move_X[1]]=gote_stone;
     }
 
-    kif_input={(int)(X[0]/25)-1,(int)(X[1]/25)-1};
+    kif_input={move_X[0],move_X[1]};
 
     //進むボタンを押すときにどこまで進めていいか更新
     if(board_all[moves_count-1]!=board||

@@ -1,0 +1,170 @@
+#include"bonjin_gui.hpp"
+
+int end_judge(vector<vector<int>> board){
+    int flg=0;
+    int i,j,k,stone_count;
+    vector<vector<int>>board_flg(19,vector<int>(19));
+    if(moves_count>=361){
+        flg=draw_flg;
+    }else if(moves_count>=9){
+        for(i=0;i<19;i++){
+            for(j=0;j<19;j++){
+                if(board[i][j]==sente_stone && board_flg[i][j]==0){
+                    //横方向
+                    stone_count=0;
+                    for(k=0;k<19-j;k++){
+                        if(board[i][j+k]!=sente_stone)break;
+                        stone_count++;
+                    }
+                    for(k=0;k<stone_count;k++){
+                        if(k==0){
+                            board_flg[i][j+k]=max(board_flg[i][j+k],stone_count);
+                        }else{
+                            board_flg[i][j+k]=stone_count;
+                        }
+                    }
+                    //終了か判定
+                    if(stone_count==5){
+                        flg=sente_stone;
+                        break;
+                    }
+
+                    //縦方向
+                    stone_count=0;
+                    for(k=0;k<19-i;k++){
+                        if(board[i+k][j]!=sente_stone)break;
+                        stone_count++;
+                    }
+                    for(k=0;k<stone_count;k++){
+                        if(k==0){
+                            board_flg[i+k][j]=max(board_flg[i+k][j],stone_count);
+                        }else{
+                            board_flg[i+k][j]=stone_count;
+                        }
+                    }
+                    //終了か判定
+                    if(stone_count==5){
+                        flg=sente_stone;
+                        break;
+                    }
+
+                    //斜め右上方向
+                    stone_count=0;
+                    for(k=0;k<min(i+1,19-j);k++){
+                        if(board[i-k][j+k]!=sente_stone)break;
+                        stone_count++;
+                    }
+                    for(k=0;k<stone_count;k++){
+                        if(k==0){
+                            board_flg[i-k][j+k]=max(board_flg[i-k][j+k],stone_count);
+                        }else{
+                            board_flg[i-k][j+k]=stone_count;
+                        }
+                    }
+                    //終了か判定
+                    if(stone_count==5){
+                        flg=sente_stone;
+                        break;
+                    }
+
+                    //斜め右下方向
+                    stone_count=0;
+                    for(k=0;k<min(19-i,19-j);k++){
+                        if(board[i+k][j+k]!=sente_stone)break;
+                        stone_count++;
+                    }
+                    for(k=0;k<stone_count;k++){
+                        if(k==0){
+                            board_flg[i+k][j+k]=max(board_flg[i+k][j+k],stone_count);
+                        }else{
+                            board_flg[i+k][j+k]=stone_count;
+                        }
+                    }
+                    //終了か判定
+                    if(stone_count==5){
+                        flg=sente_stone;
+                        break;
+                    }
+                }else if(board[i][j]==gote_stone && board_flg[i][j]==0){
+                    //横方向
+                    stone_count=0;
+                    for(k=0;k<19-j;k++){
+                        if(board[i][j+k]!=gote_stone)break;
+                        stone_count++;
+                    }
+                    for(k=0;k<stone_count;k++){
+                        if(k==0){
+                            board_flg[i][j+k]=max(board_flg[i][j+k],stone_count);
+                        }else{
+                            board_flg[i][j+k]=stone_count;
+                        }
+                    }
+                    //終了か判定
+                    if(stone_count==5){
+                        flg=gote_stone;
+                        break;
+                    }
+
+                    //縦方向
+                    stone_count=0;
+                    for(k=0;k<19-i;k++){
+                        if(board[i+k][j]!=gote_stone)break;
+                        stone_count++;
+                    }
+                    for(k=0;k<stone_count;k++){
+                        if(k==0){
+                            board_flg[i+k][j]=max(board_flg[i+k][j],stone_count);
+                        }else{
+                            board_flg[i+k][j]=stone_count;
+                        }
+                    }
+                    //終了か判定
+                    if(stone_count==5){
+                        flg=gote_stone;
+                        break;
+                    }
+
+                    //斜め右上方向
+                    stone_count=0;
+                    for(k=0;k<min(i+1,19-j);k++){
+                        if(board[i-k][j+k]!=gote_stone)break;
+                        stone_count++;
+                    }
+                    for(k=0;k<stone_count;k++){
+                        if(k==0){
+                            board_flg[i-k][j+k]=max(board_flg[i-k][j+k],stone_count);
+                        }else{
+                            board_flg[i-k][j+k]=stone_count;
+                        }
+                    }
+                    //終了か判定
+                    if(stone_count==5){
+                        flg=gote_stone;
+                        break;
+                    }
+
+                    //斜め右下方向
+                    stone_count=0;
+                    for(k=0;k<min(19-i,19-j);k++){
+                        if(board[i+k][j+k]!=gote_stone)break;
+                        stone_count++;
+                    }
+                    for(k=0;k<stone_count;k++){
+                        if(k==0){
+                            board_flg[i+k][j+k]=max(board_flg[i+k][j+k],stone_count);
+                        }else{
+                            board_flg[i+k][j+k]=stone_count;
+                        }
+                    }
+                    //終了か判定
+                    if(stone_count==5){
+                        flg=gote_stone;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    return flg;
+}

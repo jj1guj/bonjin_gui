@@ -51,24 +51,33 @@ void disp(void){
 
     //最後にどこに着手されたか表示
     if(moves_count>1){
-        float last_x1=25*(float)(kif[moves_count-2][0]+1)-13;
-        float last_y1=25*(float)(kif[moves_count-2][1]+1)-13;
-        float last_x2=25*(float)(kif[moves_count-2][0]+1)+13;
-        float last_y2=25*(float)(kif[moves_count-2][1]+1)+13;
+        float last_x1=25*(float)(kif[moves_count-2][1]+1)-13;
+        float last_y1=25*(float)(kif[moves_count-2][0]+1)-13;
+        float last_x2=25*(float)(kif[moves_count-2][1]+1)+13;
+        float last_y2=25*(float)(kif[moves_count-2][0]+1)+13;
         glColor3f(1,0,0);
         glRectf(last_x1,last_y1,last_x2,last_y2);
     }
 
     //局面の描画
     draw_phase();
+    //終局していないか判定
+    end_flg=end_judge(board);
 
     //マウスポインタを移動させた時のイベント
     if(X[0]>=25&&X[0]<=475&&X[1]>=25&&X[1]<=475){
-        //マウスポインタが盤上にあるときどこに打つか表示
-        glColor3f(1,0,0);
-        glBegin(GL_LINE_LOOP);
-            glCircle(stone_size,X[0],X[1]);
-        glEnd();
+        move_X[0]=(int)(X[1]/25)-1;
+        move_X[1]=(int)(X[0]/25)-1;
+        //終局していないか判定
+        if(end_flg==0){
+            //マウスポインタが盤上にあり, かつ合法手のときどこに打つか表示
+            if(judge_legal(move_X[0],move_X[1])){
+                glColor3f(1,0,0);
+                glBegin(GL_LINE_LOOP);
+                    glCircle(stone_size,X[0],X[1]);
+                glEnd();
+            }
+        }
     }else if(X[0]>=500&&X[0]<=575&&X[1]>=25&&X[1]<=75){
         //リセットボタンの色を反転させて再描画
         glColor3f(0,0,0);
@@ -102,12 +111,15 @@ void disp(void){
     }
 
     if(clicked){
-        move_X[0]=(int)(X[0]/25)-1;
-        move_X[1]=(int)(X[1]/25)-1;
+        move_X[0]=(int)(X[1]/25)-1;
+        move_X[1]=(int)(X[0]/25)-1;
         if(move_X[0]>=0&&move_X[0]<19&&move_X[1]>=0&&move_X[1]<19){
-            //クリックされたときに着手
-            if(board[move_X[0]][move_X[1]]==0){
-                move();
+            //終局していないか判定
+            if(end_flg==0){
+                //クリックされたとき合法手であれば着手
+                if(judge_legal(move_X[0],move_X[1])&&board[move_X[0]][move_X[1]]==0){
+                    move();
+                }
             }
         }else if(X[0]>=500&&X[0]<=575&&X[1]>=25&&X[1]<=75){
             //リセットボタンがクリックされたときに盤面・棋譜を削除

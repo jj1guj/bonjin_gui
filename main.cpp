@@ -10,6 +10,7 @@ vector<vector<vector<int>>>board_all(400,vector<vector<int>>(19,vector<int>(19))
 bool clicked=false;
 int moves_count=1;
 int moves_max=1;
+int end_flg;
 
 int main(int argc,char** argv){
     glutInit(&argc,argv);

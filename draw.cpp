@@ -51,12 +51,12 @@ void draw_phase(){
             if(board[i][j]==1){
                 glColor3f(0,0,0);
                 glBegin(GL_POLYGON);
-                    glCircle(stone_size,(float)(25*(i+1)),(float)(25*(j+1)));
+                    glCircle(stone_size,(float)(25*(j+1)),(float)(25*(i+1)));
                 glEnd();
             }else if(board[i][j]==-1){
                 glColor3f(1,1,1);
                 glBegin(GL_POLYGON);
-                    glCircle(stone_size,(float)(25*(i+1)),(float)(25*(j+1)));
+                    glCircle(stone_size,(float)(25*(j+1)),(float)(25*(i+1)));
                 glEnd();
             }
         }
